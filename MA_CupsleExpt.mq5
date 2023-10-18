@@ -70,10 +70,10 @@ void CheckForTrade(void)
 
     if (TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) && Bars(_Symbol, _Period) > 100)
     {
-        if (rt[0].open > ma[0] && rt[0].close < ma[0]) // 1つ前のロウソク足の始値の方がMAの値より大きく、かつ(&&)、1つ前のロウソク足の終値の方がMAの値より小さい場合(上から下に抜けた)に ORDER_TYPE_SELL
-            transaction.Sell();                        // sell conditions
+        if (rt[0].open > ma[0] && rt[0].close < ma[0])      // 1つ前のロウソク足の始値の方がMAの値より大きく、かつ(&&)、1つ前のロウソク足の終値の方がMAの値より小さい場合(上から下に抜けた)に ORDER_TYPE_SELL
+            transaction.Sell();                             // sell conditions
         else if (rt[0].open < ma[0] && rt[0].close > ma[0]) // 1つ前のロウソク足の始値の方がMAの値より小さく、かつ(&&)、1つ前のロウソク足の終値の方がMAの値より大きい場合(下から上に抜けた)に ORDER_TYPE_SELL
-                transaction.Buy();                         // buy conditions
+            transaction.Buy();                              // buy conditions
     }
 }
 //+------------------------------------------------------------------+
