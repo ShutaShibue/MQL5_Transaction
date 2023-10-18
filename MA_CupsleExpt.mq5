@@ -7,7 +7,6 @@
 #property link "http://www.mql5.com"
 #property version "1.00"
 
-#include <Trade\Trade.mqh>
 #include "Transaction.mqh"
 
 input double MaximumRisk = 0.02; // Maximum Risk in percentage
@@ -16,7 +15,6 @@ input int MovingPeriod = 12;     // Moving Average period
 input int MovingShift = 6;       // Moving Average shift
 //---
 int ExtHandle = 0;
-bool ExtHedging = false;
 Transaction transaction;
 
 #define MA_MAGIC 1234501
