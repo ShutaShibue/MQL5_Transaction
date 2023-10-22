@@ -21,6 +21,8 @@ protected:
 public:
     void Transaction::Buy();
     void Transaction::Sell();
+    void Transaction::Close();
+    void Transaction::BuyLimit(); // 逆指値買い注文
     void Transaction::Initialize(ulong _Magic, double _MaximumRisk, double _DecreaseFactor);
 
 private:
@@ -42,6 +44,13 @@ void Transaction::Initialize(ulong _Magic, double _MaximumRisk, double _Decrease
     ExtHedging = ((ENUM_ACCOUNT_MARGIN_MODE)AccountInfoInteger(ACCOUNT_MARGIN_MODE) == ACCOUNT_MARGIN_MODE_RETAIL_HEDGING);
 }
 
+//逆指値買い
+void Transaction::BuyLimit()
+{
+    ExtTrade.Buy(TradeSizeOptimized(), _Symbol, SymbolInfoDouble(_Symbol, SYMBOL_ASK));
+}
+
+//成行買い
 void Transaction::Buy()
 {
     if (SelectPosition())
@@ -60,6 +69,11 @@ void Transaction::Sell()
         ExtTrade.PositionOpen(_Symbol, ORDER_TYPE_BUY, TradeSizeOptimized(),
                               SymbolInfoDouble(_Symbol, SYMBOL_BID), // ORDER_TYPE_SELL:現在のBid価格
                               0, 0);
+}
+
+void Transaction::Close()
+{
+    ExtTrade.PositionClose(_Symbol, 3);
 }
 
 bool Transaction::SelectPosition()
